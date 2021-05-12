@@ -1,16 +1,16 @@
-import Data.Char
+import Data.Char ( ord )
 
 validateInput :: [(Char, Char)] -> Bool
 validateInput [] = True
-validateInput xs    | validateLength xs && validateNoDoubles xs = True
+validateInput xs    | validateLength xs  = True -- && validateNoDoubles xs
                     | otherwise = False
 
 validateLength :: [(Char, Char)] -> Bool
 validateLength xs   | length xs <= 24 = True
                     | otherwise = False
 
-validateNoDoubles :: [(Char, Char)] -> Bool
-validateNoDoubles (a:b:xs) |
+--validateNoDoubles :: [(Char, Char)] -> Bool
+--validateNoDoubles (a:b:xs) |
 
 preEncodeString :: [(Char, Char)] -> [(Char, Int)]
 preEncodeString [] = []
