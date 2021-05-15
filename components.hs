@@ -101,32 +101,3 @@ main = do
 
 
 
-
-
-
-
-
-
-
-
-
--- TO-DO Lennart: 
--- Alles sollte wie gewünscht funktionieren. 
--- ggf. Überlegegungen zum Debugging von Teilfunktionen.
--- Nachlesen wie der Reflector funktioniert.
--- "Spiegelsimulation/funktion" implementieren
--- Danach kann mit dem Zusammensetzen der Verschlüsselung begonnen werden.
---"hallo"
---"xallo"
---drehen
---"xullo"
---drehen
---"xuplo"
---drehen
---"xupzo"
---drehen
---"xupzy"
-
-
-
-
