@@ -71,10 +71,13 @@ zurueckuebersetzenMitKombi c (w1, w2, w3) = zurueckuebersetzen (zurueckuebersetz
 -- Umkehrwalzen
 
 umkehrwalze1 :: Umkehrwalze
-umkehrwalze1 =   zip  "EJMZALYXVBWFCRQUONTSPIKHGD" alphabet--eddmann1
+umkehrwalze1 =   zip   "EJMZALYXVBWFCRQUONTSPIKHGD" alphabet--eddmann1
 
 umkehrwalze2 :: Umkehrwalze
 umkehrwalze2 =   zip  "IMETCGFRAYSQBZXWLHKDVUPOJN" alphabet--
+
+umkehrwalze3 :: Umkehrwalze
+umkehrwalze3 = zip  "YRUHQSLDPXNGOKMIEBFZCWVJAT" alphabet
 
 -- Umkehrwalzenfunktion
 umkehren :: Char -> Umkehrwalze -> Char 
@@ -93,7 +96,7 @@ verschluessleString (x:xs) (w1, w2, w3) u = (verschluessle x (w1, w2, w3) u) : (
 --Für Testzwecke
 main :: IO()
 main = do
-   print (verschluessleString "aaa" (walze1, walze2, walze3) umkehrwalze1)
+   print (verschluessleString "SOOHTRXVHW" (walze3, walze2, walze1) umkehrwalze3)
 
 
 
