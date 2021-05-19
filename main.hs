@@ -17,7 +17,7 @@ preEncodeString [] = []
 preEncodeString (x:xs)  | ord(fst(x)) > ord(snd(x)) = [(fst(x), (ord(fst(x)) - ord(snd(x))))] ++ preEncodeString xs
                         | otherwise = [(fst(x), (ord(snd(x)) - ord(fst(x))))] ++ preEncodeString xs
 
-main :: IO()
-main = do
-    print("Erfolgreich kompiliert")
-    print(preEncodeString[('A','E'),('B','Z')])
+--main :: IO()
+--main = do
+--    print("Erfolgreich kompiliert")
+--    print(preEncodeString[('A','E'),('B','Z')])

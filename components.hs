@@ -1,4 +1,5 @@
--- Module for the mechanical parts of the enigma
+module Components where-- Module for the mechanical parts of the enigma
+
 
 alphabet :: [Char]
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -94,10 +95,10 @@ verschluessleString [] (w1, w2, w3) u = []
 verschluessleString (x:xs) (w1, w2, w3) u = (verschluessle x (w1, w2, w3) u) : (verschluessleString xs (dreheAlleWalzen(w1, w2, w3)) u)
 
 --Für Testzwecke
-main :: IO()
-main = do
-  print (verschluessleString "NAZIKRAM" (walze1, walze2, walze3) umkehrwalze1)
-  print (verschluessleString "HXWXQKLY" (walze4, walze3, walze1) umkehrwalze1)
+--main :: IO()
+--main = do
+--  print (verschluessleString "HASKELLSUCKSMAJORDICKIWANTTOKILLMYSELF" (walze1, walze2, walze3) umkehrwalze1)
+--  print (verschluessleString "BGHQOSEFDTFUKUDQXYARHKEUEBZTGZQBUWVPCD" (walze1, walze2, walze3) umkehrwalze1)
 
 
 
