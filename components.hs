@@ -86,7 +86,7 @@ umkehren c umkehrwalze | snd(head umkehrwalze) == c = fst (head umkehrwalze)
 
 
 verschluessle :: Char -> Walzenkombi -> Umkehrwalze -> Char
-verschluessle c (w1, w2, w3) u =  zurueckuebersetzenMitKombi (umkehren (uebersetzenMitKombi c (w1, w2, w3)) u) (w1, w2, w3)
+verschluessle c (w1, w2, w3) u =  zurueckuebersetzenMitKombi (umkehren (uebersetzenMitKombi c (w1, w2, w3)) u) (w3, w2, w1) --hier war der BUG
 --wo wird gedreht?-> danach
 
 verschluessleString :: String -> Walzenkombi -> Umkehrwalze -> String 
@@ -96,8 +96,8 @@ verschluessleString (x:xs) (w1, w2, w3) u = (verschluessle x (w1, w2, w3) u) : (
 --Für Testzwecke
 main :: IO()
 main = do
-   print (verschluessleString "SOOHTRXVHW" (walze3, walze2, walze1) umkehrwalze3)
-
+  print (verschluessleString "NAZIKRAM" (walze1, walze2, walze3) umkehrwalze1)
+  print (verschluessleString "HXWXQKLY" (walze4, walze3, walze1) umkehrwalze1)
 
 
 
