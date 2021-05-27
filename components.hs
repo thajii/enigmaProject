@@ -12,6 +12,8 @@ type Walzenkombi = (Walze, Walze, Walze)--hier eine Kombination für das Drehen 
 
 type Umkehrwalze = [(Char, Char)]
 
+type Plugboard = [(Char,Char)]
+
 -- Walzen
 walze1 :: Walze
 walze1 = Walze "EKMFLGDQVZNTOWYHXUSPAIBRCJ" alphabet 'Q' 
@@ -86,13 +88,13 @@ umkehren c umkehrwalze | snd(head umkehrwalze) == c = fst (head umkehrwalze)
                        | otherwise = umkehren c (tail umkehrwalze) 
 
 
-verschluessle :: Char -> Walzenkombi -> Umkehrwalze -> Char
-verschluessle c (w1, w2, w3) u =  zurueckuebersetzenMitKombi (umkehren (uebersetzenMitKombi c (w1, w2, w3)) u) (w3, w2, w1) --hier war der BUG
+verschluessle :: Char -> Walzenkombi -> Umkehrwalze -> Plugboard-> Char
+verschluessle c (w1, w2, w3) u p = initialesVerschluesseln (zurueckuebersetzenMitKombi (umkehren (uebersetzenMitKombi (initialesVerschluesseln c p)(w1, w2, w3)) u) (w3, w2, w1)) p --hier war der BUG
 --wo wird gedreht?-> danach
 
-verschluessleString :: String -> Walzenkombi -> Umkehrwalze -> String 
-verschluessleString [] (w1, w2, w3) u = []
-verschluessleString (x:xs) (w1, w2, w3) u = (verschluessle x (w1, w2, w3) u) : (verschluessleString xs (dreheAlleWalzen(w1, w2, w3)) u)
+verschluessleString :: String -> Walzenkombi -> Umkehrwalze -> Plugboard -> String 
+verschluessleString [] (w1, w2, w3) u p = []
+verschluessleString (x:xs) (w1, w2, w3) u p = (verschluessle x (w1, w2, w3) u p) : (verschluessleString xs (dreheAlleWalzen(w1, w2, w3)) u p)
 
 --Für Testzwecke
 --main :: IO()
@@ -100,5 +102,37 @@ verschluessleString (x:xs) (w1, w2, w3) u = (verschluessle x (w1, w2, w3) u) : (
 --  print (verschluessleString "HASKELLSUCKSMAJORDICKIWANTTOKILLMYSELF" (walze1, walze2, walze3) umkehrwalze1)
 --  print (verschluessleString "BGHQOSEFDTFUKUDQXYARHKEUEBZTGZQBUWVPCD" (walze1, walze2, walze3) umkehrwalze1)
 
+-- Plugboard/Streckbrett
 
+plugboard :: Plugboard
+plugboard = []
 
+--Plugboardfunktionen
+
+toList :: Char -> Char -> Plugboard
+toList c1 c2 = [(c1, c2)]
+
+changePlugboard :: String -> Plugboard -> Plugboard--länge des Strings im interface checken und ob alle elemente nur einmal sind 
+changePlugboard [] board = []
+changePlugboard (x:y:xs) board = toList x y ++ toList y x ++ changePlugboard xs board -- doppeltes Abspeichern der Verbindung, sonst zwei Funktionen initialesVerschluesseln
+
+initialesVerschluesseln :: Char -> Plugboard -> Char
+initialesVerschluesseln c [] = c
+initialesVerschluesseln c board | c == fst(head board) = snd (head board)
+                                | otherwise = initialesVerschluesseln c (tail board)
+
+main :: IO()
+main = do
+    print (plugboard)
+    --print(changePlugboard "AXUN" plugboard)
+    let plugboard1 =  changePlugboard "AXUN" plugboard
+    --print(initialesVerschluesseln 'A' changedPlugboard)
+    --print(initialesVerschluesseln 'X' changedPlugboard)
+    print (verschluessleString "HASKELLSUCKSMAJORDICK" (walze1, walze2, walze3) umkehrwalze1 plugboard1)
+    print (verschluessleString "BFHQOSEFCTFNKIDQAYXRH" (walze1, walze2, walze3) umkehrwalze1 plugboard1)
+    --print (verschluessleString "BGHQOSEFDTFUKUDQXYARH" (walze1, walze2, walze3) umkehrwalze1)
+
+--xa 
+--b b
+--c c
+--d d

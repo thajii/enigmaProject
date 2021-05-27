@@ -1,0 +1,7 @@
+- PowerPoint mit Code Snippets und Erklärungen 
+- Robustheit/ Überprüfung von Eingaben
+- Code formatieren + Kommentieren
+---------------------------------------------------------------
+- Einbau des Plugboards
+- Plugboard Data
+- Plugboard Funktionen
