@@ -1,7 +1,14 @@
 - PowerPoint mit Code Snippets und Erklärungen 
-- Robustheit/ Überprüfung von Eingaben
 - Code formatieren + Kommentieren
 ---------------------------------------------------------------
+- Mainloop
 - Einbau des Plugboards
 - Plugboard Data
-- Plugboard Funktionen
+- Plugboard Funktionen   
+
+- Prüfen der Eingabelisten Text
+- Prüfen der Eingabelisten Umkehrwalzen
+- Prüfen der Eingabelisten Walzen
+- Prüfen der Eingabelisten Plugboard
+- Plugboard in den Mainloop
+=> Robustheit/ Überprüfung von Eingaben

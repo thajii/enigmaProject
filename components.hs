@@ -125,11 +125,11 @@ main :: IO()
 main = do
     print (plugboard)
     --print(changePlugboard "AXUN" plugboard)
-    let plugboard1 =  changePlugboard "AXUN" plugboard
+    let plugboard1 =  changePlugboard [] plugboard
     --print(initialesVerschluesseln 'A' changedPlugboard)
     --print(initialesVerschluesseln 'X' changedPlugboard)
     print (verschluessleString "HASKELLSUCKSMAJORDICK" (walze1, walze2, walze3) umkehrwalze1 plugboard1)
-    print (verschluessleString "BFHQOSEFCTFNKIDQAYXRH" (walze1, walze2, walze3) umkehrwalze1 plugboard1)
+    print (verschluessleString "BGHQOSEFDTFUKUDQXYARH" (walze1, walze2, walze3) umkehrwalze1 plugboard1)
     --print (verschluessleString "BGHQOSEFDTFUKUDQXYARH" (walze1, walze2, walze3) umkehrwalze1)
 
 --xa 
