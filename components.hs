@@ -1,6 +1,5 @@
 module Components where-- Module for the mechanical parts of the enigma
 
---Test
 alphabet :: [Char]
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
