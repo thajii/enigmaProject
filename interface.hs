@@ -2,6 +2,7 @@ import Components (Walze, walze1, walze2, walze3, walze4, walze5, Walzenkombi, U
 --hier einen Weg finden einfach alles zu importieren, die Länge triggert
 import Data.Char (toUpper)
 import Data.List (sort)
+import Data.Char (ord)
 
 --Funktionen um Eingabestrings in Components zu übersetzen
 convertWalze :: Char -> Walze
@@ -41,10 +42,14 @@ keineDuplikate (x:y:xs) | x == y = False
                         | otherwise = True && keineDuplikate (y:xs) 
 
 --Hilfsfunktion für plugboardCheck
+
 nurBuchstaben:: String -> Bool 
 nurBuchstaben [] = True
 nurBuchstaben (x:xs) | x `notElem` ['A'..'Z'] ++ ['a'..'z']= False
                      | otherwise = True && nurBuchstaben xs 
+
+
+
 
 --Textfilter welcher um ungewollte Zeichen zu entfernen
 filterText :: String -> String
