@@ -2,6 +2,7 @@ import Components (Walze, walze1, walze2, walze3, walze4, walze5, Walzenkombi, U
 --hier einen Weg finden einfach alles zu importieren, die Länge triggert
 import Data.Char (toUpper)
 import Data.List (sort)
+import Data.Char (ord)
 
 --Funktionen um Eingabestrings in Werte zu übersetzen String -> Component
 convertWalze :: Char -> Walze
@@ -56,6 +57,26 @@ keineDuplikate (x:y:xs) | x == y = False
 nurBuchstaben:: String -> Bool --siehe name der Funktion
 nurBuchstaben (x:xs) | x `notElem` ['A'..'Z'] ++ ['a'..'z']= False--kleine buchstaben auch io
                      | otherwise = True || nurBuchstaben xs -- VSC Anmerkung hier ignorieren
+--Noch eine Hilfsunktion für plugboardCheck
+createFirstLists :: String -> String
+createFirstLists [] = []
+createFirstLists (x:y:xs) = [x] ++ createFirstLists xs 
+
+createSecondLists :: String -> String
+createSecondLists [] = [] []
+createSecondLists (x:y:xs) = [y] ++ createSecondLists xs
+
+--Quicksort 
+qst[] = []
+qst (x:xs) = qstsmaller ++ [x] ++ qstlarger
+    where
+        smaller = [a | a <- xs, a <= x]
+        larger = [b | b <- xs, b > x]
+
+--Letters in ASCII
+
+
+--ASCII in Letters
 
 --Textfilter welcher um ungewollte Zeichen zu entfernen
 filterText :: String -> String
