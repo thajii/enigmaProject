@@ -3,7 +3,7 @@ import Components (Walze, walze1, walze2, walze3, walze4, walze5, Walzenkombi, U
 import Data.Char (toUpper)
 import Data.List (sort)
 
---Funktionen um Eingabestrings in Werte zu übersetzen String -> Component
+--Funktionen um Eingabestrings in Components zu übersetzen
 convertWalze :: Char -> Walze
 convertWalze '1' = walze1  
 convertWalze '2' = walze2 
@@ -12,29 +12,14 @@ convertWalze '4' = walze4
 convertWalze '5' = walze5 
 convertWalze  _  = error "Bitte eine andere Walze (1-5) wählen"
 
-convertWalzenKombi :: String -> Walzenkombi --hier die ersten drei elemente für robustheit
-convertWalzenKombi (x:y:xs) = (convertWalze x, convertWalze y, convertWalze (head xs))-- dritte Walze?
+convertWalzenKombi :: String -> Walzenkombi 
+convertWalzenKombi (x:y:xs) = (convertWalze x, convertWalze y, convertWalze (head xs))
 
-convertUmkehrwalze :: String -> Umkehrwalze --hier immer den Head nehmen für Robustheit
+convertUmkehrwalze :: String -> Umkehrwalze 
 convertUmkehrwalze (x:xs) | x == '1' = umkehrwalze1 
                           | x == '2' = umkehrwalze2 
                           | x == '3' = umkehrwalze3 
                           | otherwise = error "Bitte eine andere Umkehrwalze (1-3) wählen"
-{-
-main :: IO ()
-main = 
-    do 
-       putStrLn "Bitte die Walzenstellung (Walzen 1-5 möglich) angeben | Bsp: >>123"
-       walzenString <- getLine--input
-       putStrLn "Bitte die Umehrwalze angeben (1-3) | Bsp: >>1"
-       umkehrwalzenString <- getLine--input
-       --putStrLn "Bitte die Steckverbindungen angeben | Bsp: >>??"
-       --input
-       putStrLn "Bitte den zu ver-/entschlüsselnden Text ohne Leerzeichen eingeben | Bsp: >>HELLO"
-       text <- getLine --input
-       putStrLn (verschluessleString (map toUpper text) (convertWalzenKombi walzenString)  (convertUmkehrwalze umkehrwalzenString) plugboard)
-       main
--}
 
 --Alle gültigen Eingabekombinationen der Walzen
 moeglicheWalzenKombis :: [String]
@@ -45,26 +30,31 @@ moeglicheUmkehrWalzen:: [String]
 moeglicheUmkehrWalzen = ["1","2","3"]
  
 --Überprüfen der Eingabe des Plugboards
-plugboardCheck :: String -> Bool -- Keine Duplikate und Länge mod 2 == 0
-plugboardCheck [] = True -- es gab einen Fehler bei ausbleibender Angabe ------> Nochmal drübergucken mit der change Plugboard methdoe
-plugboardCheck string = even (length string) && keineDuplikate (sort string) && nurBuchstaben string
+plugboardCheck :: String -> Bool 
+plugboardCheck [] = True 
+plugboardCheck string = even (length string) && nurBuchstaben string && keineDuplikate (sort string) -- lazy evaluation
+
 --Hilfsfunktion für plugboardCheck
-keineDuplikate :: String -> Bool --False wenn es Duplikate gibt, 
+keineDuplikate :: String -> Bool -- False wenn es Duplikate gibt
+keineDuplikate [] = True
 keineDuplikate (x:y:xs) | x == y = False 
-                        | otherwise = True || keineDuplikate (y:xs) -- VSC Anmerkung hier ignorieren
+                        | otherwise = True && keineDuplikate (y:xs) 
+
 --Hilfsfunktion für plugboardCheck
-nurBuchstaben:: String -> Bool --siehe name der Funktion
-nurBuchstaben (x:xs) | x `notElem` ['A'..'Z'] ++ ['a'..'z']= False--kleine buchstaben auch io
-                     | otherwise = True || nurBuchstaben xs -- VSC Anmerkung hier ignorieren
+nurBuchstaben:: String -> Bool 
+nurBuchstaben [] = True
+nurBuchstaben (x:xs) | x `notElem` ['A'..'Z'] ++ ['a'..'z']= False
+                     | otherwise = True && nurBuchstaben xs 
 
 --Textfilter welcher um ungewollte Zeichen zu entfernen
 filterText :: String -> String
-filterText string = [x | x <- string, x `notElem` ",.?!-:;1234567890ß</>_ +*#ÜÄÖüäö@$%&()=\""]      
+filterText string = [x | x <- string, x `notElem` ",.?!-:;1234567890ß</>_ +*#ÜÄÖüäö@$%&()=\""]     
 
-main :: IO ()--neuer Main-"loop"
+-- Main-"Loop"
+main :: IO ()
 main = 
     do putStrLn "Bitte die Walzenstellung (1-5 möglich) angeben | Bsp: >>123"
-       walzenString <- getLine--input
+       walzenString <- getLine
        if  walzenString `notElem` moeglicheWalzenKombis
            then 
                do putStrLn "Fehler: Walzenauswahl ungültig!"
@@ -90,7 +80,6 @@ main =
                                            putStrLn "Bitte den zu ver-/entschlüsselnden Text eingeben"
                                            putStrLn "Achtung: Zahlen bitte ausschreiben, Satzzeichen werden entfernt!"
                                            text <- getLine 
-                                           putStrLn " "
                                            putStrLn " "
                                            putStrLn "Ergebnis:" 
                                            let plugboardVerwendet =  changePlugboard (map toUpper plugboardString) plugboard

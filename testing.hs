@@ -62,18 +62,20 @@ e2 = ["1","2","3"]
 
 moeglicheWalzenKombis :: [String]
 moeglicheWalzenKombis = [a:b:c:[] |a <-['1'..'5'], b <-['1'..'5'], c <-['1'..'5'] ]
-{-
-plugboardOK :: String -> Bool -- Keine Duplikate und Länge mod 2 == 0
-plugboardOK string = even (length string) && keineDuplikate (sort string)
 
-keineDuplikate :: String -> Bool --False wenn es Duplikate gibt
+--Überprüfen der Eingabe des Plugboards
+plugboardCheck :: String -> Bool -- Keine Duplikate und Länge mod 2 == 0
+plugboardCheck [] = True -- es gab einen Fehler bei ausbleibender Angabe ------> Nochmal drübergucken mit der change Plugboard methdoe
+plugboardCheck string = even (length string) && keineDuplikate (sort string) 
+--Hilfsfunktion für plugboardCheck
+keineDuplikate :: String -> Bool --False wenn es Duplikate gibt, 
+keineDuplikate [] = True
 keineDuplikate (x:y:xs) | x == y = False 
-                        | otherwise = True || keineDuplikate (y:xs)
--}
+                        | otherwise = True && keineDuplikate (y:xs) -- VSC Anmerkung hier ignorieren
+
 
 filterText :: String -> String
 filterText string = [x | x <- string, x `notElem` ",.?!-:;1234567890ß</>_ +*#ÜÄÖüäö@$%&()="]
-
 
 
 string :: [Char]
@@ -83,8 +85,15 @@ string = "schätzchen ich hoff wir sehen uns bald, wie ist draußen das wetter?"
 main :: IO ()
 main = 
     do putStrLn "-------------------------"
-       print (filterText string)
+       --print (filterText string)
        --print moeglicheWalzenKombis
        --print (plugboardOK "QR")
        --print (plugboardOK "ACDCT")
        --print (plugboardOK "QWERTZUIOPLKJHGFDSAYXCVBNM")
+       print (even (length []))
+       print (sort "A5CD1C")
+     
+       print (plugboardCheck "ACDC")
+       print (plugboardCheck "ACCA")
+       print('1' == 'C')
+       
