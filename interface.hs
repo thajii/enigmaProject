@@ -37,7 +37,8 @@ plugboardCheck string = even (length string) && nurBuchstaben string && keineDup
 --Hilfsfunktion für plugboardCheck
 keineDuplikate :: String -> Bool -- False wenn es Duplikate gibt
 keineDuplikate [] = True
-keineDuplikate (x:y:xs) | x == y = False 
+keineDuplikate (x:y:xs) | x == y = False
+                        | x /= y && length xs == 0 = True
                         | otherwise = True && keineDuplikate (y:xs) 
 
 --Hilfsfunktion für plugboardCheck
