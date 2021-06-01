@@ -1,5 +1,4 @@
 import Components (Walze, walze1, walze2, walze3, walze4, walze5, Walzenkombi, Umkehrwalze, umkehrwalze1, umkehrwalze2, umkehrwalze3, verschluessleString, plugboard, changePlugboard)
---hier einen Weg finden einfach alles zu importieren, die Länge triggert
 import Data.Char (toUpper)
 import Data.List (sort)
 
@@ -42,7 +41,6 @@ keineDuplikate (x:y:xs) | x == y = False
                         | otherwise = True && keineDuplikate (y:xs) 
 
 --Hilfsfunktion für plugboardCheck
-
 nurBuchstaben:: String -> Bool 
 nurBuchstaben [] = True
 nurBuchstaben (x:xs) | x `notElem` ['A'..'Z'] ++ ['a'..'z']= False
